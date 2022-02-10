@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(RocketMovement))]
 public class Rocket : MonoBehaviour
 {
-    [SerializeField] private Transform _startPoint;
-
     private int _batteryCount;
-
+    private RocketMovement _movement;
+    public RocketMovement Movement => _movement;
+    public int BatteryCount => _batteryCount;
     public event UnityAction GameOver;
     public event UnityAction<int> ChangeCurrentBatteryCount;
-    public int BatteryCount => _batteryCount;
+
 
     private void Start()
     {
-        transform.position = _startPoint.position;
+        _movement = GetComponent<RocketMovement>();
+        _movement.enabled = false;
+
+        LoadStat();
+
         ChangeCurrentBatteryCount?.Invoke(_batteryCount);
     }
 
@@ -31,13 +36,20 @@ public class Rocket : MonoBehaviour
     public void ResetStat()
     {
         _batteryCount = 0;
+        SaveStat();
     }
 
-    public void LoadStat()
+    private void LoadStat()
     {
         RocketData data = SaveSystem.LoadRocket();
 
-        _batteryCount = data.BatteryCount;
+        if(data == null)
+        {
+            ResetStat();
+            return;
+        }
+
+        _batteryCount = SaveSystem.LoadRocket().BatteryCount;
     }
 
     public void SaveStat()

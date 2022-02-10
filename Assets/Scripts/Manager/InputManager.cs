@@ -1,11 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private RocketMovement _rocketMovement;
     [SerializeField] private PauseScreen _pauseScreen;
+    [SerializeField] private GameManager _gameManager;
 
-    private RocketInput _rocketInput;
+    private RocketInput _rocketInput; 
 
     private void Awake()
     {
@@ -25,22 +25,17 @@ public class InputManager : MonoBehaviour
         _rocketInput.Disable();
     }
 
-    private void Start()
-    {
-        _rocketMovement.enabled = false;
-    }
-
     private void Update()
     {
-        if (_rocketMovement == null)
+        if (_gameManager.Rocket.Movement == null)
             return;
 
         int value = (_rocketInput.Rocket.Move.ReadValue<float>() > 0.1f) ? 1 : -1;
-        
-        if (_rocketMovement.enabled)
-            _rocketMovement.Move(value);
+
+        if (_gameManager.Rocket.Movement.enabled)
+            _gameManager.Rocket.Movement.Move(value);
         else
-            _rocketMovement.enabled = (value > 0) ? true : false;
+            _gameManager.Rocket.Movement.enabled = (value > 0) ? true : false;
     }
 
 }

@@ -5,17 +5,18 @@ using TMPro;
 
 public class BatteryCountDisplay : MonoBehaviour
 {
-    [SerializeField] private Rocket _rocket;
+    [SerializeField] private GameManager _gameManager;
     [SerializeField] private TMP_Text _currentCount;
 
-    private void OnEnable()
+
+    private void Start()
     {
-        _rocket.ChangeCurrentBatteryCount += OnChangeCurrentBatteryCount;
+        _gameManager.Rocket.ChangeCurrentBatteryCount += OnChangeCurrentBatteryCount;
     }
 
     private void OnDisable()
     {
-        _rocket.ChangeCurrentBatteryCount -= OnChangeCurrentBatteryCount;
+        _gameManager.Rocket.ChangeCurrentBatteryCount -= OnChangeCurrentBatteryCount;
     }
 
     private void OnChangeCurrentBatteryCount(int value)

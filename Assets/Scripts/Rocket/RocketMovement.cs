@@ -14,8 +14,6 @@ public class RocketMovement : MonoBehaviour
     private void Start()
     {
         _currentAngle = _maxAngleRotation / 2;
-        Rotate();
-
     }
 
     public void Move(int value)

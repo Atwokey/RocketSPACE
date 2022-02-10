@@ -33,16 +33,17 @@ public abstract class Screen : MonoBehaviour
     private void OnExitButtonClick()
     {
         SceneManager.LoadScene(0);
+        Close();
     }
 
-    public void Open()
+    public virtual void Open()
     {
         _panel.SetActive(true);
         _audioManager.PlayAudio(_audio);
         Time.timeScale = 0;
     }
 
-    public void Close()
+    public virtual void Close()
     {
         _panel.SetActive(false);
         _audioManager.StopAudio();

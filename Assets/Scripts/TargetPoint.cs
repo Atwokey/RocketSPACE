@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
-public class FinishPoint : MonoBehaviour
+public class TargetPoint : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
 
