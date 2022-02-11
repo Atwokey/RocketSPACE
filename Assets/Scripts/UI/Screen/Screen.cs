@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public abstract class Screen : MonoBehaviour
 {
     [SerializeField] private GameObject _panel;
+    [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private Button _exitButton;
     [SerializeField] private AudioManager _audioManager;
     [SerializeField] private AudioClip _audio;
@@ -32,7 +33,7 @@ public abstract class Screen : MonoBehaviour
 
     private void OnExitButtonClick()
     {
-        SceneManager.LoadScene(0);
+        _loadingScreen.Load();
         Close();
     }
 

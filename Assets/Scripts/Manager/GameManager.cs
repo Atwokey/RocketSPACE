@@ -5,13 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Rocket")]
     [SerializeField] private Rocket _rocketPrefab;
     [SerializeField] private Point _startPoint;
-    [Header("Screens")]
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private CongratulationScreen _winScreen;
     [SerializeField] private TargetPoint _targetPoint;
+    [SerializeField] private LoadingScreen _loadingScreen;
 
     public Rocket Rocket { get; private set; }
 
@@ -41,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void OnRestartButtonClick()
     {
-        SceneManager.LoadScene(1);
+        _loadingScreen.Load(1);
     }
 
     private void OnGameOver()
@@ -54,9 +53,13 @@ public class GameManager : MonoBehaviour
         int nextIndexScene = SceneManager.GetActiveScene().buildIndex + 1;
 
         if (nextIndexScene >= SceneManager.sceneCountInBuildSettings)
+        {
             WinGame();
+            return;
+        }
 
-        SceneManager.LoadScene(nextIndexScene);
+        Rocket.SaveStat();
+        _loadingScreen.Load(nextIndexScene);
     }
 
     private void WinGame()

@@ -11,13 +11,6 @@ public class TargetPoint : MonoBehaviour
     public void LoadScene()
     {
         _audio.Play();
-        StartCoroutine(DelayNextScene());
-    }
-
-    IEnumerator DelayNextScene()
-    {
-        yield return new WaitForSeconds(.4f);
-
         NextScene?.Invoke();
     }
 }
